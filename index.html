@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to HTML</title>
+</head>
+<body>
+
+    <div id="content"></div>
+
+    <script>
+        // Se você estiver trabalhando no navegador, você pode carregar o arquivo JSON usando uma solicitação XMLHttpRequest
+        // Certifique-se de que o arquivo JSON está no mesmo domínio ou que o servidor permite solicitações de outros domínios (CORS).
+        var xmlhttp = new XMLHttpRequest();
+        var url = "/arquivo.json";
+
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var jsonData = JSON.parse(this.responseText);
+                generateHTML(jsonData);
+            }
+        };
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+        function generateHTML(data) {
+            // Aqui você pode usar os dados do JSON para criar o conteúdo HTML
+            var contentDiv = document.getElementById("content");
+
+            // Exemplo simples: criando uma lista não ordenada com os itens do JSON
+            var ul = document.createElement("ul");
+            data.forEach(function (item) {
+                var li = document.createElement("li");
+                li.textContent = item.text;
+                ul.appendChild(li);
+            });
+
+            // Adicionando a lista ao elemento de conteúdo
+            contentDiv.appendChild(ul);
+        }
+    </script>
+
+</body>
+</html>
